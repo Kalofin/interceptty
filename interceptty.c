@@ -241,7 +241,7 @@ const char *char_repr(unsigned char ch)
   /* https://en.wikipedia.org/wiki/Control_character */
   static const char lowCtrlChrs[LOW_CRTL_SZ][RESP_SZ] = {
     "[NUL]", "[SOH]", "[STX]", "[ETX]", "[EOT]", "[ENQ]", "[ACK]", "[BEL]",
-    "[BS]",  "[TAB]", "[LF]",  "[VT]",  "[FF]",  "[CR]",  "[SO]",  "[SI]",
+    "[BS]",  "[TAB]", "\n",  "[VT]",  "[FF]",  "\r",  "[SO]",  "[SI]",
     "[DLE]", "[DC1]", "[DC2]", "[DC3]", "[DC4]", "[NAK]", "[SYN]", "[ETB]",
     "[CAN]", "[EM]",  "[SUB]", "[ESC]", "[FS]",  "[GS]",  "[RS]",  "[US]",
     "' '" /* for space */
@@ -289,7 +289,7 @@ void dumpbuff(int dir, char *buf, int buflen)
       fprintf(outfile, "%s", tstamp);
     }
     /* origin arrows */
-    if (lineChCnt < 1)
+/*    if (lineChCnt < 1)
     {
       if (dir)
       {
@@ -302,7 +302,7 @@ void dumpbuff(int dir, char *buf, int buflen)
         fprintf(outfile, "< ");
       }
     }
-    /* print value */
+*/    /* print value */
     ic=(unsigned char)buf[i];
     if (print_hex)
     {
@@ -317,12 +317,12 @@ void dumpbuff(int dir, char *buf, int buflen)
       if (print_hex)
       {
         if (!use_eol_ch)
-          fprintf(outfile, " (%s)", char_repr(buf[i]));
+          fprintf(outfile, "(%s)", char_repr(buf[i]));
         else
           fprintf(outfile, "(%s)", char_repr(buf[i]));
       } else {
         if (!use_eol_ch)
-          fprintf(outfile, " %s", char_repr(buf[i]));
+          fprintf(outfile, "%s", char_repr(buf[i]));
         else
           fprintf(outfile, "%s", char_repr(buf[i]));
       }
@@ -336,9 +336,9 @@ void dumpbuff(int dir, char *buf, int buflen)
         fprintf(outfile, ":");
 
     }
-    if (lineChCnt < 1 || i == (buflen - 1))
+/*    if (lineChCnt < 1 || i == (buflen - 1))
       fprintf(outfile, "\n");
-  }
+*/  }
   fflush(outfile);
 }
 
